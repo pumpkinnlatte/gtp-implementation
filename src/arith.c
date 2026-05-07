@@ -27,6 +27,8 @@ pf_int_t pf_next_binomial(pf_int_t p, pf_int_t k, pf_int_t r) {
     return p * (k + 1) / (k + 1 - r);
 }
 
+//helpers
+
 pf_int_t pf_isqrt(pf_int_t x) {
     if (x < 2) return x;
 

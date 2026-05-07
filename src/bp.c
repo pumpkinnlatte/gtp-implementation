@@ -5,7 +5,7 @@
 pf_int_t pf_direct_bp(const pf_int_t *B, size_t m) {
     if (m == 0) return 0;
 
-    // Encontrar beta e iota 
+    // Encontrar beta, iota 
     pf_int_t beta = B[0];
     size_t iota = 1;
     for (size_t i = 2; i <= m; i++) {
@@ -28,10 +28,10 @@ pf_int_t pf_direct_bp(const pf_int_t *B, size_t m) {
     pf_int_t alpha;
     size_t i;
     if (iota == 1) {
-        alpha = (m >= 2) ? B[1] : 0;   // b_2
+        alpha = (m >= 2) ? B[1] : 0;   
         i = 3;
     } else {
-        alpha = B[0];                   // b_1
+        alpha = B[0];                  
         i = 2;
     }
 

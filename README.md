@@ -1,8 +1,8 @@
 # packing-functions
-Implementacion didactica de las funciones de empaquetamiento estudiadas
+Implementacion de las funciones de empaquetamiento estudiadas
 en Torres-Jimenez et al. (2015).
  
-Los 8 algoritmos del paper estan implementados.
+Lista de algoritmos implementados
  
 | # | Algoritmo                  |
 |---|----------------------------|
@@ -10,7 +10,6 @@ Los 8 algoritmos del paper estan implementados.
 | 2 | Binomial                   |
 | 3 | InverseGTP                 | 
 | 4 | NextBinomial               | 
-| 5 | AllSubsets                 | 
 | 6 | DirectDP                   |
 | 7 | DirectBP                   | 
 | 8 | InverseBP                  | 
@@ -25,9 +24,9 @@ Los 8 algoritmos del paper estan implementados.
 ## Uso
  
     make                                    # compila todo
-    make test                               # corre suite con resumen
+    make test                               
     make demo                               # ejecuta examples/demo
-    make cli ARGS="dp encode 2 3"           # interfaz por linea de comandos
+    make cli ARGS="dp encode 2 3"           
     make debug                              
     make clean
  
@@ -48,11 +47,5 @@ Ejemplos:
 
 ## Limites del tipo entero
 
-Se usa un entero uint64_t (0 a 2^64 - 1). 
-
-**`pf_binomial`**: el Algoritmo 2 multiplica antes de dividir. Los
-intermedios pueden desbordar.
-
-**`pf_direct_bp`**: phi_1 = beta^m y phi_2 = (beta+1)^m. Para m=10, beta = 100 excede 2^64.
-
-**`pf_inverse_gtp`**: usa f * alpha donde f = m! puede ser grande.
+Se usa un entero uint64_t (0 a 2^64 - 1) por lo que por ahora hay limitaciones
+con dimensionalidades altas

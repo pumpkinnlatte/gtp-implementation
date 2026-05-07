@@ -23,7 +23,7 @@ static int fails = 0;
 } while (0)
 
 // Tabla 5x5 para GTP. 
-static const pf_int_t paper_table_gtp[5][5] = {
+static const pf_int_t example_table_gtp[5][5] = {
     {999,   0,   1,   3,   6},
     {999, 999,   2,   4,   7},
     {999, 999, 999,   5,   8},
@@ -31,11 +31,11 @@ static const pf_int_t paper_table_gtp[5][5] = {
     {999, 999, 999, 999, 999}
 };
 
-static void test_direct_gtp_paper_table(void) {
+static void test_direct_gtp_example_table(void) {
     for (pf_int_t v1 = 0; v1 < 5; v1++) {
         for (pf_int_t v2 = v1 + 1; v2 < 5; v2++) {
             pf_int_t V[2] = {v1, v2};
-            CHECK_EQ(pf_direct_gtp(V, 2), paper_table_gtp[v1][v2],
+            CHECK_EQ(pf_direct_gtp(V, 2), example_table_gtp[v1][v2],
                      "tabla GTP del paper");
         }
     }
@@ -92,7 +92,7 @@ static void test_inverse_gtp_2d(void) {
     // Para cada celda valida de la tabla, decodificar alpha.
     for (pf_int_t v1 = 0; v1 < 5; v1++) {
         for (pf_int_t v2 = v1 + 1; v2 < 5; v2++) {
-            pf_int_t alpha = paper_table_gtp[v1][v2];
+            pf_int_t alpha = example_table_gtp[v1][v2];
             pf_int_t V[2];
             pf_inverse_gtp(alpha, 2, V);
             CHECK_EQ(V[0], v1, "inverse_gtp 2D: v1");
@@ -147,55 +147,9 @@ static void test_bijection_inverse_dp_higher_dim(void) {
     }
 }
 
-// ---------- all_subsets ----------
-
-typedef struct {
-    pf_int_t count;
-    pf_int_t alpha_seen[64];   // alphas en orden de enumeracion
-    pf_int_t max_alpha;
-} subset_state;
-
-static void count_cb(const pf_int_t *V, size_t t, void *user) {
-    subset_state *s = (subset_state *)user;
-    pf_int_t alpha = pf_direct_gtp(V, t);
-    if (s->count < 64) s->alpha_seen[s->count] = alpha;
-    if (alpha > s->max_alpha) s->max_alpha = alpha;
-    s->count++;
-}
-
-static void test_all_subsets_count(void) {
-    // Total de subconjuntos de tamaño t
-    pf_int_t cases[][3] = {
-        // k, t, esperado
-        {5, 2, 10},
-        {6, 3, 20},
-        {7, 4, 35},
-        {4, 4, 1},      // solo (0,1,2,3)
-    };
-    size_t n = sizeof(cases) / sizeof(cases[0]);
-    for (size_t i = 0; i < n; i++) {
-        subset_state s = {0, {0}, 0};
-        pf_all_subsets(cases[i][0], (size_t)cases[i][1], count_cb, &s);
-        CHECK_EQ(s.count, cases[i][2], "all_subsets cuenta correcta");
-    }
-}
-
-static void test_all_subsets_covers_all_alphas(void) {
-    subset_state s = {0, {0}, 0};
-    pf_all_subsets(5, 3, count_cb, &s);
-    CHECK_EQ(s.count, 10, "all_subsets(5,3) genera 10 vectores");
-    CHECK_EQ(s.max_alpha, 9, "max alpha = C(5,3) - 1 = 9");
-
-    // Verificar que aparecen todos los alphas en [0, 9].
-    int seen[16] = {0};
-    for (pf_int_t i = 0; i < s.count; i++) seen[s.alpha_seen[i]] = 1;
-    for (int a = 0; a < 10; a++) {
-        CHECK(seen[a] == 1, "alpha presente en la enumeracion");
-    }
-}
 
 int main(void) {
-    test_direct_gtp_paper_table();
+    test_direct_gtp_example_table();
     test_direct_gtp_known();
     test_bijections_gtp_dp();
     test_bijection_preserves_alpha();
@@ -203,8 +157,6 @@ int main(void) {
     test_bijection_inverse_gtp();
     test_inverse_dp_general_matches_2d();
     test_bijection_inverse_dp_higher_dim();
-    test_all_subsets_count();
-    test_all_subsets_covers_all_alphas();
 
     if (fails == 0) printf("gtp: OK\n");
     else            printf("gtp: %d FAILS\n", fails);

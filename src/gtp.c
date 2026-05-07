@@ -33,7 +33,7 @@ void pf_inverse_gtp(pf_int_t alpha, size_t m, pf_int_t *V) {
         alpha -= delta;
         f /= i;
 
-        if (i == 1) break;  // size_t no puede bajar de 0; salida explicita
+        if (i == 1) break;
     }
 }
 
@@ -63,7 +63,9 @@ void pf_all_subsets(pf_int_t k, size_t t, pf_subset_cb cb, void *user) {
     pf_int_t V[64];
     if (t > 64) return;  // limite practico
 
-    for (size_t i = 0; i < t; i++) V[i] = (pf_int_t)i;
+    for (size_t i = 0; i < t; i++){
+        V[i] = (pf_int_t)i;
+    } 
 
     size_t omega = (k == t) ? 1 : t;
 
