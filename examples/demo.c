@@ -106,7 +106,7 @@ int main(void) {
 
     printf("\n");
     hr();
-    printf("DEMO 4: diseccion de vectores concretos\n");
+    printf("DEMO 4: vectores concretos\n");
     hr();
     demo_dp_vector(2, 3);
     printf("\n");

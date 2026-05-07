@@ -48,13 +48,13 @@ static void show_vector(const pf_int_t *W, size_t m) {
 
 int main(void) {
     hr();
-    printf("DEMO DP -- tabla 5x5 (compararla con la del paper)\n");
+    printf("DEMO DP -- tabla 5x5\n");
     hr();
     show_table_2d(5);
 
     printf("\n");
     hr();
-    printf("DEMO DP -- diseccion de vectores 2D\n");
+    printf("DEMO DP -- vectores 2D\n");
     hr();
     dissect_2d(2, 3);
     printf("\n");
@@ -72,22 +72,6 @@ int main(void) {
     show_vector(V3, 3);
     show_vector(V4, 4);
     show_vector(V5, 5);
-
-    printf("\n");
-    hr();
-    printf("DEMO DP -- biyeccion exhaustiva en 2D para w1, w2 en [0, 4]\n");
-    hr();
-    int ok = 1;
-    for (pf_int_t w1 = 0; w1 <= 4 && ok; w1++) {
-        for (pf_int_t w2 = 0; w2 <= 4 && ok; w2++) {
-            pf_int_t alpha = pf_direct_dp_2d(w1, w2);
-            pf_int_t W[2];
-            pf_inverse_dp_2d(alpha, W);
-            if (W[0] != w1 || W[1] != w2) ok = 0;
-        }
-    }
-    printf("  inverse(direct(w1, w2)) == (w1, w2) para todos los pares: %s\n",
-           ok ? "OK" : "FAIL");
-
+    
     return 0;
 }

@@ -9,7 +9,7 @@ static void hr(void) {
     printf("------------------------------------------------------------\n");
 }
 
-// Imprime la tabla 2D de GTP 
+// Genera la tabla 2D de GTP 
 static void show_table_gtp(pf_int_t size) {
     printf("         ");
     for (pf_int_t v2 = 0; v2 < size; v2++) printf("v2=%-4" PRIu64, v2);
@@ -72,7 +72,7 @@ int main(void) {
 
     printf("\n");
     hr();
-    printf("DEMO GTP -- diseccion de vectores 2D y 3D\n");
+    printf("DEMO GTP -- vectores 2D y 3D\n");
     hr();
     pf_int_t A[2] = {2, 4};
     pf_int_t B[3] = {0, 2, 5};
@@ -98,7 +98,7 @@ int main(void) {
 
     printf("\n");
     hr();
-    printf("DEMO GTP -- inverse_dp m-dimensional usando GTP internamente\n");
+    printf("DEMO GTP -- inverse_dp m-dimensional usando GTP\n");
     hr();
     pf_int_t Wtest[4] = {0, 1, 2, 0};
     pf_int_t a = pf_direct_dp(Wtest, 4);
