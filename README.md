@@ -38,24 +38,23 @@ El programa `p-functions` permite ejecutar los polinomios por linea de comandos.
  
 Ejemplos:
  
-    ./build/p-functions dp encode 2 3          # vector DP -> alpha (= 17)
-    ./build/p-functions dp decode 2 17         # alpha -> vector DP (= (2,3))
+    ./build/p-functions dp encode 2 3          # vector DP -> alpha = 17
+    ./build/p-functions dp decode 2 17         # alpha -> vector DP = (2,3)
     ./build/p-functions gtp encode 0 2 5       # vector GTP -> alpha
     ./build/p-functions gtp decode 3 8         # alpha -> vector GTP
-    ./build/p-functions bp encode 1 2 1        # vector BP -> alpha (= 21)
-    ./build/p-functions bp decode 3 21         # alpha -> vector BP (= (1,2,1))
+    ./build/p-functions bp encode 1 2 1        # vector BP -> alpha = 21
+    ./build/p-functions bp decode 3 21         # alpha -> vector BP = (1,2,1)
     ./build/p-functions dp table 6             # imprime tabla 6x6 de DP
     ./build/p-functions help                   # ayuda completa
 
 ## Limites del tipo entero
 
-Todo opera sobre `pf_int_t = uint64_t` (rango: 0 a 2^64 - 1).
+Todo opera sobre `pf_int_t = uint64_t` (0 a 2^64 - 1).
 Se tienen limites:
 
 **`pf_binomial`**: el Algoritmo 2 multiplica antes de dividir. Los
 intermedios pueden desbordar uint64_t.
 
-**`pf_direct_bp`**: phi_1 = beta^m y phi_2 = (beta+1)^m crecen muy
-rapido. Para m=10, beta = 100 ya excede 2^64.
+**`pf_direct_bp`**: phi_1 = beta^m y phi_2 = (beta+1)^m. Para m=10, beta = 100 excede 2^64.
 
 **`pf_inverse_gtp`**: usa f * alpha donde f = m! puede ser grande.
