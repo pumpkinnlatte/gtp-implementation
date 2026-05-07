@@ -25,7 +25,7 @@ static void usage(void) {
     puts("");
     puts("  encode <v1> [v2 ...]    vector -> alpha");
     puts("  decode <m> <alpha>      alpha -> vector");
-    puts("  table  <size>           tabla 2D (dp y bp unicamente)");
+    puts("  table  <size>           tabla 2D");
     puts("");
     puts("Ejemplos:");
     puts("  p-functions dp  encode 2 3");
