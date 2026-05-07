@@ -108,7 +108,7 @@ static void table_dp(pf_int_t size) {
     for (pf_int_t w2 = 0; w2 < size; w2++) printf("w2=%-5" PRIu64, w2);
     printf("\n");
     for (pf_int_t w1 = 0; w1 < size; w1++) {
-        printf("w1=%" PRIu64 "  ", w1);
+        printf("w1=%-3" PRIu64 "  ", w1);
         for (pf_int_t w2 = 0; w2 < size; w2++)
             printf("%-8" PRIu64, pf_direct_dp_2d(w1, w2));
         printf("\n");
@@ -120,10 +120,28 @@ static void table_bp(pf_int_t size) {
     for (pf_int_t b2 = 0; b2 < size; b2++) printf("b2=%-5" PRIu64, b2);
     printf("\n");
     for (pf_int_t b1 = 0; b1 < size; b1++) {
-        printf("b1=%" PRIu64 "  ", b1);
+        printf("b1=%-3" PRIu64 "  ", b1);
         for (pf_int_t b2 = 0; b2 < size; b2++) {
             pf_int_t B[2] = {b1, b2};
             printf("%-8" PRIu64, pf_direct_bp(B, 2));
+        }
+        printf("\n");
+    }
+}
+
+static void table_gtp(pf_int_t size) {
+    printf("      ");
+    for (pf_int_t v2 = 0; v2 < size; v2++) printf("v2=%-5" PRIu64, v2);
+    printf("\n");
+    for(pf_int_t v1 =0; v1 < size; v1++) {
+        printf("v1=%-3" PRIu64 "  ", v1);
+        for(pf_int_t v2 =0; v2 < size; v2++) {
+            if(v2 > v1) {
+                pf_int_t V[2] = {v1, v2};
+                printf("%-8" PRIu64, pf_direct_gtp(V, 2));
+            } else {
+                printf(".       ");
+            }
         }
         printf("\n");
     }
@@ -164,8 +182,9 @@ int main(int argc, char **argv) {
         if (nrest < 1) { fputs("table: falta el tamaño\n", stderr); return 1; }
         pf_int_t size = (pf_int_t)strtoull(rest[0], NULL, 10);
         if      (strcmp(tipo, "dp")  == 0) table_dp(size);
-        else if (strcmp(tipo, "bp")  == 0) table_bp(size);
-        else { fprintf(stderr, "table solo disponible para dp y bp\n"); return 1; }
+        if (strcmp(tipo, "bp")  == 0) table_bp(size);
+        if (strcmp(tipo, "gtp")  == 0) table_gtp(size);
+        else { fprintf(stderr, "tipo desconocido: %s\n", tipo); return 1; }
 
     } else {
         fprintf(stderr, "operacion desconocida: %s\n", op);
