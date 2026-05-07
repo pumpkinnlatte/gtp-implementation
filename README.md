@@ -1,4 +1,4 @@
-# gtp-implementation
+# packing-functions
 Implementacion didactica de las funciones de empaquetamiento estudiadas
 en Torres-Jimenez et al. (2015).
  
