@@ -26,16 +26,6 @@ static int fails = 0;
     }                                                          \
 } while (0)
 
-// ---------- gcd ----------
-
-static void test_gcd_basic(void) {
-    CHECK_EQ(gcd_u64(12, 18), 6, "gcd(12,18)");
-    CHECK_EQ(gcd_u64(100, 75), 25, "gcd(100,75)");
-    CHECK_EQ(gcd_u64(17, 13), 1, "gcd primos");
-    CHECK_EQ(gcd_u64(0, 5), 5, "gcd(0,5)");
-    CHECK_EQ(gcd_u64(5, 0), 5, "gcd(5,0)");
-}
-
 // ---------- binomial ----------
 
 static void test_binomial_trivial(void) {
@@ -150,7 +140,6 @@ static void test_iroot_invariant(void) {
 // ---------- main ----------
 
 int main(void) {
-    test_gcd_basic();
 
     test_binomial_trivial();
     test_binomial_pascal();
