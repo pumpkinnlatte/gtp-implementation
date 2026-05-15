@@ -48,6 +48,42 @@ pf_int_t pf_direct_dp_2d(pf_int_t w1, pf_int_t w2);
 void pf_inverse_dp_2d(pf_int_t alpha, pf_int_t *W);
 
 /**
+ * @brief Decodes an integer into a 3-D vector using the Cardano closed-form inverse.
+ *
+ * An integer correction step guards against floating-point rounding. The residual
+ * alpha' = alpha - C(d+2,3) is decoded by pf_inverse_dp_2d.
+ *
+ * @param[in]  alpha Integer to decode.
+ * @param[out] W     Output array of length 3.
+ */
+void pf_inverse_dp_3d(pf_int_t alpha, pf_int_t *W);
+ 
+/**
+ * @brief Decodes an integer into a 4-D vector using the bicuadratic closed-form inverse.
+ *
+ * An integer correction step guards against floating-point 
+ * rounding. The residual alpha' = alpha - C(d+3,4) is 
+ * decoded by pf_inverse_dp_3d.
+ *
+ * @param[in]  alpha Integer to decode.
+ * @param[out] W     Output array of length 4.
+ */
+void pf_inverse_dp_4d(pf_int_t alpha, pf_int_t *W);
+ 
+/**
+ * @brief Decodes an integer into an m-dimensional vector via direct diagonal decomposition.
+ *
+ *  Avoids floating-point arithmetic entirely. Supports up 
+ *  to 20 dimensions (factorial limit of uint64_t).
+ *
+ * @param[in]  alpha Integer to decode.
+ * @param[in]  m     Number of vector components; must be >= 1 and <= 20.
+ * @param[out] W     Output array of length m filled with the recovered vector.
+ */
+void pf_inverse_dp_direct(pf_int_t alpha, size_t m, pf_int_t *W);
+
+
+/**
  * @brief Decodes an integer into an m-dimensional vector via the GTP bijection.
  *
  * Calls pf_inverse_gtp to obtain the GTP representation, then converts it to
